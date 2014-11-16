@@ -139,7 +139,7 @@ namespace SplineGenerator
             {
                 return null;
             }
-            Trajectory traj = new Trajectory(length);
+            Trajectory traj = new Trajectory();
 
             Segment last = new Segment { Pos = 0, Vel = startVel, Acc = 0, Jerk = 0, Dt = dt };
             // First segment is easy
@@ -150,6 +150,7 @@ namespace SplineGenerator
             f1[0] = (startVel / maxVel) * f1Length;
             for (int i = 0; i < length; ++i)
             {
+                Segment segment = new Segment();
                 // Apply input
                 double input = Math.Min(totalImpulse, 1);
                 if (input < 1)
@@ -181,27 +182,28 @@ namespace SplineGenerator
                 f2 = f2 / f1Length;
 
                 // Velocity is the normalized sum of f2 * the max velocity
-                traj[i].Vel = f2 / f2Length * maxVel;
+                segment.Vel = f2 / f2Length * maxVel;
 
                 if (integration == IntegrationMethod.RectangularIntegration)
                 {
-                    traj[i].Pos = traj[i].Vel * dt + last.Pos;
+                    segment.Pos = segment.Vel * dt + last.Pos;
                 }
                 else if (integration == IntegrationMethod.TrapezoidalIntegration)
                 {
-                    traj[i].Pos = (last.Vel
-                            + traj[i].Vel) / 2.0 * dt + last.Pos;
+                    segment.Pos = (last.Vel
+                            + segment.Vel) / 2.0 * dt + last.Pos;
                 }
-                traj[i].X = traj[i].Pos;
-                traj[i].Y = 0;
+                segment.X = segment.Pos;
+                segment.Y = 0;
 
                 // Acceleration and jerk are the differences in velocity and
                 // acceleration, respectively.
-                traj[i].Acc = (traj[i].Vel - last.Vel) / dt;
-                traj[i].Jerk = (traj[i].Acc - last.Acc) / dt;
-                traj[i].Dt = dt;
+                segment.Acc = (segment.Vel - last.Vel) / dt;
+                segment.Jerk = (segment.Acc - last.Acc) / dt;
+                segment.Dt = dt;
 
-                last = traj[i];
+                last = segment;
+                traj.AddSegment(segment);
             }
 
             return traj;

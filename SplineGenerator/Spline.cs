@@ -15,7 +15,6 @@ namespace SplineGenerator
         double _d;  // + dx^2
         double _e;  // + ex
 
-        Type _type;
         double _yOffset;
         double _xOffset;
         double _knotDistance;
@@ -44,8 +43,6 @@ namespace SplineGenerator
             double x1, double y1, double theta1, Spline result, Type type)
         {
             Console.WriteLine("Reticulating splines...");
-
-            result._type = type;
 
             // Transform x to the origin
             result._xOffset = x0;

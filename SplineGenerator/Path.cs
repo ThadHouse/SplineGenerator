@@ -10,12 +10,15 @@ namespace SplineGenerator
         private Trajectory _mainTrajectory;
         private Trajectory _left;
         private Trajectory _right;
-        public TrajectoryGenerator.Config Config;
-        private WaypointSequence sequence;
+        private readonly TrajectoryGenerator.Config _config;
+        private readonly WaypointSequence _sequence;
+
+
         public String Name { get; set; }
         protected double WheelBaseWidth { get; set; }
 
-        public Trajectory MainTrajectory {
+        public Trajectory MainTrajectory 
+        {
             get { return _mainTrajectory; }
         }
 
@@ -30,9 +33,24 @@ namespace SplineGenerator
         }
 
 
+        public Path(String name, double wheelBaseWidth)
+        {
+            Name = name;
+            WheelBaseWidth = wheelBaseWidth;
+            _config = new TrajectoryGenerator.Config { Dt = 0.01 };
+            _sequence = new WaypointSequence();
+        }
+
+        public Path()
+        {
+            _config = new TrajectoryGenerator.Config();
+            _sequence = new WaypointSequence();
+        }
+
+
         public bool GeneratePath()
         {
-            _mainTrajectory = PathGenerator.GenerateFromPath(sequence, Config);
+            _mainTrajectory = PathGenerator.GenerateFromPath(_sequence, _config);
             if (_mainTrajectory == null)
                 return false;
             PathGenerator.MakeLeftAndRightTrajectories(_mainTrajectory, WheelBaseWidth, out _left, out _right);
@@ -40,46 +58,32 @@ namespace SplineGenerator
 
         }
 
-        public Path(String name, double wheelBaseWidth)
-        {
-            Name = name;
-            WheelBaseWidth = wheelBaseWidth;
-            Config = new TrajectoryGenerator.Config {Dt = 0.01};
-            sequence = new WaypointSequence();
-        }
-
-        public Path()
-        {
-            Config = new TrajectoryGenerator.Config();
-            sequence = new WaypointSequence();
-        }
-
         public void AddWaypoint(Waypoint w)
         {
-            sequence.AddWaypoint(w);
+            _sequence.AddWaypoint(w);
         }
 
         public void AddWaypoint(double x, double y, double theta)
         {
-            sequence.AddWaypoint(new Waypoint(x, y, theta));
+            _sequence.AddWaypoint(new Waypoint(x, y, theta));
         }
 
         public void SetConfig(double maxVel = 10.0, double maxAcc = 10.0, double maxJerk = 50.0)
         {
-            Config.MaxVel = maxVel;
-            Config.MaxAcc = maxAcc;
-            Config.MaxJerk = maxJerk;
+            _config.MaxVel = maxVel;
+            _config.MaxAcc = maxAcc;
+            _config.MaxJerk = maxJerk;
         }
 
         public void SetConfigDt(double dt)
         {
-            Config.Dt = dt;
+            _config.Dt = dt;
         }
 
         public double GetEndHeading()
         {
             int numSegments = _left.GetNumSegments();
-            Segment lastSegment = _left.GetSegment(numSegments - 1);
+            Segment lastSegment = _left[(numSegments - 1)];
             return lastSegment.Heading;
         }
     }

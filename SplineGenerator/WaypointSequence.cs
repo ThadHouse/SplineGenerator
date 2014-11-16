@@ -59,18 +59,5 @@ namespace SplineGenerator
         {
             return GetEnumerator();
         }
-        public WaypointSequence InvertY()
-        {
-            WaypointSequence inverted = new WaypointSequence();
-            for (int i = 0; i < GetNumWaypoints(); ++i)
-            {
-                inverted._waypoints.Add(_waypoints[i]);
-                inverted._waypoints[i].Y *= -1;
-                inverted._waypoints[i].Theta = ChezyMath.BoundAngle0To2PiRadians(
-                    2 * Math.PI - inverted._waypoints[i].Theta);
-            }
-
-            return inverted;
-        }
     }
 }

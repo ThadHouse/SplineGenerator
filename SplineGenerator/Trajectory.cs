@@ -7,16 +7,21 @@ namespace SplineGenerator
 {
     public class Trajectory : IEnumerable<Segment>
     {
-        private bool _invertedY = false;
         private readonly List<Segment> _segments;//; = new List<Segment>();
 
-        public Trajectory(int length)
+        public Trajectory()
         {
             _segments = new List<Segment>();
-            for (int i = 0; i < length; ++i)
-            {
-                _segments.Add(new Segment());
-            }
+        }
+        public Trajectory(IEnumerable<Segment> segments)
+        {
+            _segments = new List<Segment>(segments);
+        }
+
+
+        public void AddSegment(Segment s)
+        {
+            _segments.Add(s);
         }
 
         public Segment this[int i]
@@ -34,51 +39,12 @@ namespace SplineGenerator
             return GetEnumerator();
         }
 
-        public Trajectory(IEnumerable<Segment> segments)
-        {
-            _segments = new List<Segment>(segments);
-        }
-
-        public void SetInvertedY(bool inverted)
-        {
-            _invertedY = inverted;
-        }
-
+        
         public int GetNumSegments()
         {
             return _segments.Count;
         }
-
-        public Segment GetSegment(int index)
-        {
-            if (index < GetNumSegments())
-            {
-                if (!_invertedY)
-                {
-                    return _segments[index];
-                }
-                else
-                {
-                    Segment segment = new Segment(_segments[index]);
-                    segment.Y *= -1.0;
-                    segment.Heading *= -1.0;
-                    return segment;
-                }
-            }
-            else
-            {
-                return new Segment();
-            }
-        }
-
-        public void SetSegment(int index, Segment segment)
-        {
-            if (index < GetNumSegments())
-            {
-                _segments[index] = segment;
-            }
-        }
-
+        
         public void Scale(double scalingFactor)
         {
             for (int i = 0; i < GetNumSegments(); ++i)
@@ -94,7 +60,7 @@ namespace SplineGenerator
         {
             for (int i = 0; i < toAppend.GetNumSegments(); ++i)
             {
-                _segments.Add(toAppend.GetSegment(i));
+                _segments.Add(toAppend[i]);
             }
         }
 
@@ -103,7 +69,7 @@ namespace SplineGenerator
             return new Trajectory(CopySegments(_segments));
         }
 
-        private List<Segment> CopySegments(IEnumerable<Segment> toCopy)
+        private IEnumerable<Segment> CopySegments(IEnumerable<Segment> toCopy)
         {
             List<Segment> copied = toCopy.Select(s => new Segment(s)).ToList();
             return copied;
@@ -114,7 +80,7 @@ namespace SplineGenerator
             String str = "Segment\tPos\tVel\tAcc\tJerk\tHeading\n";
             for (int i = 0; i < GetNumSegments(); ++i)
             {
-                Segment segment = GetSegment(i);
+                Segment segment = _segments[i];
                 str += i + "\t";
                 str += segment.Pos + "\t";
                 str += segment.Vel + "\t";
@@ -137,7 +103,7 @@ namespace SplineGenerator
             String str = "Segment\tx\ty\tHeading\n";
             for (int i = 0; i < GetNumSegments(); ++i)
             {
-                Segment segment = GetSegment(i);
+                Segment segment = _segments[i];
                 str += i + "\t";
                 str += segment.X + "\t";
                 str += segment.Y + "\t";
