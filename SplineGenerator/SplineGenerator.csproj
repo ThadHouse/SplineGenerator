@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3420F175-3CE6-434F-82F4-CC4320A6D750}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SplineGenerator</RootNamespace>
     <AssemblyName>SplineGenerator</AssemblyName>
@@ -53,6 +53,7 @@
     <Compile Include="Trajectory.cs" />
     <Compile Include="TrajectoryGenerator.cs" />
     <Compile Include="WaypointSequence.cs" />
+    <Compile Include="WriteFile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

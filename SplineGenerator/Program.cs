@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.IO;
 
@@ -30,8 +28,8 @@ namespace SplineGenerator
                 StringBuilder content = new StringBuilder();
                 content.AppendLine(path.Name);
                 content.AppendLine(l.GetNumSegments().ToString());
-                content.AppendLine(serialize(l));
-                content.AppendLine(serialize(r));
+                content.AppendLine(Serialize(l));
+                content.AppendLine(Serialize(r));
 
 
                 if (!Directory.Exists("Outputs"))
@@ -48,7 +46,7 @@ namespace SplineGenerator
             }
         }
 
-        static string serialize(Trajectory trajectory)
+        static string Serialize(Trajectory trajectory)
         {
             StringBuilder content = new StringBuilder();
 
