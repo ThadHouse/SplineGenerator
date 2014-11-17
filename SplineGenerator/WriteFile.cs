@@ -8,6 +8,7 @@ namespace SplineGenerator
 {
     class WriteFile
     {
+        /*
         public string SerializePathComplete(Path path)
         {
             StringBuilder content = new StringBuilder();
@@ -44,5 +45,6 @@ namespace SplineGenerator
 
             return content.ToString();
         }
+         * */
     }
 }

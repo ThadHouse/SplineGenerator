@@ -56,6 +56,18 @@ namespace SplineGenerator
             }
         }
 
+        public void InvertX()
+        {
+            foreach (var segment in _segments)
+            {
+                segment.X = -segment.X;
+                segment.Vel = -segment.Vel;
+                segment.Acc = -segment.Acc;
+                segment.Jerk = -segment.Jerk;
+                segment.Pos = -segment.Pos;
+            }
+        }
+
         public void Append(Trajectory toAppend)
         {
             for (int i = 0; i < toAppend.GetNumSegments(); ++i)
