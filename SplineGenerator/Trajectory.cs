@@ -68,6 +68,20 @@ namespace SplineGenerator
             }
         }
 
+        public void CorrectAngles()
+        {
+            foreach (var segment in _segments)
+            {
+                segment.Heading = ChezyMath.BoundAngleNegPiToPiRadians(segment.Heading);
+                segment.Heading = RadianToDegree(segment.Heading);
+            }
+        }
+
+        private double RadianToDegree(double angle)
+        {
+            return angle * (180.0 / Math.PI);
+        }
+
         public void Append(Trajectory toAppend)
         {
             for (int i = 0; i < toAppend.GetNumSegments(); ++i)

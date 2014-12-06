@@ -5,6 +5,8 @@ using System.Text;
 
 namespace SplineGenerator
 {
+    public enum AngleMode { Degrees, Radians }
+    
     public class Path
     {
         private Trajectory _mainTrajectory;
@@ -48,12 +50,20 @@ namespace SplineGenerator
         }
 
 
-        public bool GeneratePath()
+        public bool GeneratePath(AngleMode mode = AngleMode.Degrees)
         {
             _mainTrajectory = PathGenerator.GenerateFromPath(_sequence, _config);
             if (_mainTrajectory == null)
                 return false;
             PathGenerator.MakeLeftAndRightTrajectories(_mainTrajectory, WheelBaseWidth, out _left, out _right);
+
+
+
+            if (mode == AngleMode.Degrees)
+            {
+                _left.CorrectAngles();
+                _right.CorrectAngles();
+            }
             return true;
 
         }

@@ -24,14 +24,15 @@ namespace SplineGenerator
 
 
 
-
+                /*
                 StringBuilder content = new StringBuilder();
                 content.AppendLine(path.Name);
                 content.AppendLine(l.GetNumSegments().ToString());
                 content.AppendLine(Serialize(l));
                 content.AppendLine(Serialize(r));
+                 * */
 
-
+                /*
                 if (!Directory.Exists("Outputs"))
                     Directory.CreateDirectory("Outputs");
                 if (File.Exists("Outputs\\" + path.Name + "Output.txt"))
@@ -43,6 +44,7 @@ namespace SplineGenerator
                 //File.WriteAllLines("Outputs\\" + path.Name + "Output.txt", content);
 
                 int x = 1;
+                 * */
             }
             { // Origin to Goal
                 Path path = new Path("0,0 to 9.5,4.1", wheelBaseWidth);
@@ -52,7 +54,7 @@ namespace SplineGenerator
                 path.AddWaypoint(9.5, 4.1, 0);
 
                 path.GeneratePath();
-
+                
                 string output = SerializePathSimple(path);
 
                 if (!Directory.Exists("Outputs"))
@@ -62,6 +64,7 @@ namespace SplineGenerator
                     File.Delete("Outputs\\" + path.Name + "Output.txt");
                 }
                 File.WriteAllText("Outputs\\" + path.Name + "Output.txt", output);
+                 
             }
             { //Goal to 22 ft back
                 Path path = new Path("0,0 to -22,0", wheelBaseWidth);
@@ -74,7 +77,7 @@ namespace SplineGenerator
 
                 path.Left.InvertX();
                 path.Right.InvertX();
-
+                
                 string output = SerializePathSimple(path);
 
                 if (!Directory.Exists("Outputs"))
@@ -84,6 +87,7 @@ namespace SplineGenerator
                     File.Delete("Outputs\\" + path.Name + "Output.txt");
                 }
                 File.WriteAllText("Outputs\\" + path.Name + "Output.txt", output);
+                 
             }
             { // 22 ft back to origin
                 Path path = new Path("0,0 to 12,-4.1", wheelBaseWidth);
@@ -95,6 +99,7 @@ namespace SplineGenerator
 
                 path.GeneratePath();
 
+               
                 string output = SerializePathSimple(path);
 
                 if (!Directory.Exists("Outputs"))
@@ -104,6 +109,7 @@ namespace SplineGenerator
                     File.Delete("Outputs\\" + path.Name + "Output.txt");
                 }
                 File.WriteAllText("Outputs\\" + path.Name + "Output.txt", output);
+                 
             }
             { //22 ft back to goal, grabbing tube 2.
                 Path path = new Path("0,0 to 22,0 Grab Tube 2", wheelBaseWidth);
@@ -116,7 +122,7 @@ namespace SplineGenerator
                 path.AddWaypoint(9.5+12, 0, 0);
 
                 path.GeneratePath();
-
+                
                 string output = SerializePathSimple(path);
 
                 if (!Directory.Exists("Outputs"))
@@ -126,6 +132,7 @@ namespace SplineGenerator
                     File.Delete("Outputs\\" + path.Name + "Output.txt");
                 }
                 File.WriteAllText("Outputs\\" + path.Name + "Output.txt", output);
+                
             }
         }
 
