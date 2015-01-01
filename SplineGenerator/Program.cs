@@ -6,9 +6,15 @@ namespace SplineGenerator
 {
     class Program
     {
+        /// <summary>
+        /// Main entry point for the program
+        /// </summary>
+        /// <param name="args">Command Line Argument</param>
         static void Main(string[] args)
         {
+            //Converts inches to feet
             const double wheelBaseWidth = 26.5/12;
+
             { // Tester
                 Path path = new Path("Testing", wheelBaseWidth);
                 path.SetConfig(10.0, 8.0, 50.0);
@@ -166,7 +172,7 @@ namespace SplineGenerator
             StringBuilder content = new StringBuilder();
             var left = path.Left;
             var right = path.Right;
-            for (int i = 0; i < path.Left.GetNumSegments(); i++)
+            for (int i = 0; i < path.Left.Count; i++)
             {
                 content.AppendLine(left[i].Pos.ToString("F3") + ", " + left[i].Vel.ToString("F3") + ", " +
                                    left[i].Acc.ToString("F3")
