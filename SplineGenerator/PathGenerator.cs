@@ -8,9 +8,9 @@ namespace SplineGenerator
 
     class PathGenerator
     {
-        public static Trajectory GenerateFromPath(WaypointSequence path, TrajectoryGenerator.Config config)
+        public static Trajectory GenerateFromPath(WaypointSequence waypoints, TrajectoryGenerator.Config config)
         {
-            if (path.GetNumWaypoints() < 2)
+            if (waypoints.Count < 2)
             {
                 return null;
             }
@@ -20,11 +20,11 @@ namespace SplineGenerator
             List<Spline> splines = new List<Spline>();
             List<Double> splineLengths = new List<double>();
             double totalDistance = 0;
-            for (int i = 0; i < path.GetNumWaypoints() - 1; ++i)
+            for (int i = 0; i < waypoints.Count - 1; ++i)
             {
                 splines.Add(new Spline());
-                if (!Spline.ReticulateSplines(path[i],
-                        path[i+1], splines[i], Spline.Type.QuinticHermite))
+                if (!Spline.ReticulateSplines(waypoints[i],
+                        waypoints[i+1], splines[i], Spline.Type.QuinticHermite))
                 {
                     return null;
                 }
@@ -34,14 +34,14 @@ namespace SplineGenerator
 
             // Generate a smooth trajectory over the total distance.
             Trajectory traj = TrajectoryGenerator.Generate(config,
-                    Strategy.SCurvesStrategy, 0.0, path[0].Theta,
-                    totalDistance, 0.0, path[0].Theta);
+                    Strategy.SCurvesStrategy, 0.0, waypoints[0].Theta,
+                    totalDistance, 0.0, waypoints[0].Theta);
 
             // Assign headings based on the splines.
             int curSpline = 0;
             double curSplineStartPos = 0;
             double lengthOfSplinesFinished = 0;
-            for (int i = 0; i < traj.GetNumSegments(); ++i)
+            for (int i = 0; i < traj.Count; ++i)
             {
                 double curPos = traj[i].Pos;
 
@@ -85,7 +85,7 @@ namespace SplineGenerator
             leftTrajectory = input.Copy();
             rightTrajectory = input.Copy();
 
-            for (int i = 0; i < input.GetNumSegments(); i++)
+            for (int i = 0; i < input.Count; i++)
             {
                 Segment current = input[i];
                 double cosAngle = Math.Cos(current.Heading);

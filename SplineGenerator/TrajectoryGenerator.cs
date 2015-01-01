@@ -116,11 +116,11 @@ namespace SplineGenerator
             // Now assign headings by interpolating along the path.
             // Don't do any wrapping because we don't know units.
             double totalHeadingChange = goalHeading - startHeading;
-            for (int i = 0; i < traj.GetNumSegments(); ++i)
+            for (int i = 0; i < traj.Count; ++i)
             {
                 traj[i].Heading = startHeading + totalHeadingChange
                                             * (traj[i].Pos)
-                                            / traj[traj.GetNumSegments() - 1].Pos;
+                                            / traj[traj.Count - 1].Pos;
             }
 
             return traj;
