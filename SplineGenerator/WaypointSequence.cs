@@ -62,13 +62,6 @@ namespace SplineGenerator
             get { return _waypoints[i]; }
         }
 
-        /*
-        public int GetNumWaypoints()
-        {
-            return _waypoints.Count;
-        }
-         * */
-
         public IEnumerator<Waypoint> GetEnumerator()
         {
             return _waypoints.GetEnumerator();
