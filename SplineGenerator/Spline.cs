@@ -46,7 +46,7 @@ namespace SplineGenerator
 
             // Transform x to the origin
             result._xOffset = x0;
-            result._yOffset = y0;f0
+            result._yOffset = y0;
             double x1Hat = Math.Sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0));
             if (x1Hat == 0)
             {
