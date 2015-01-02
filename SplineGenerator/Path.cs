@@ -5,7 +5,6 @@ using System.Text;
 
 namespace SplineGenerator
 {
-
     public enum AngleMode { Degrees, Radians }
     
     public class Path
@@ -15,7 +14,6 @@ namespace SplineGenerator
         private Trajectory _left;
         private Trajectory _right;
 
-        
         private readonly TrajectoryGenerator.Config _config;
         private readonly WaypointSequence _sequence;
 
@@ -23,6 +21,7 @@ namespace SplineGenerator
         /// Gets or sets the name of the Path
         /// </summary>
         public String Name { get; set; }
+
         /// <summary>
         /// Gets or sets the WheelBaseWidth (Feet)
         /// </summary>
