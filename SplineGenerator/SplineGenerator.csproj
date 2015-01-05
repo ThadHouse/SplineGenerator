@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChezyMath.cs" />
+    <Compile Include="HolonomicPath.cs" />
     <Compile Include="Path.cs" />
     <Compile Include="PathGenerator.cs" />
     <Compile Include="Program.cs" />
