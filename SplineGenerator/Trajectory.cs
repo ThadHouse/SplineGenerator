@@ -145,6 +145,26 @@ namespace SplineGenerator
             return copied;
         }
 
+        public HolonomicTrajectory CopyToHolonomicTrajectory()
+        {
+            List<HolonomicSegment> copied = new List<HolonomicSegment>();
+
+            foreach (var seg in _segments)
+            {
+                HolonomicSegment temp = new HolonomicSegment
+                {
+                    Dt = seg.Dt,
+                    MagnitudeVelocity = seg.Vel,
+                    MagnitudeAcceleration = seg.Acc,
+                    MagnitueJerk = seg.Jerk,
+                    RotationHeading = seg.Heading,
+                    Position = seg.Pos
+                };
+                copied.Add(temp);
+            }
+            return new HolonomicTrajectory(copied);
+        }
+
         /// <summary>
         /// Outputs the path to a string
         /// </summary>

@@ -8,7 +8,7 @@ namespace SplineGenerator
 
     class PathGenerator
     {
-        public static Trajectory GenerateFromPath(WaypointSequence waypoints, TrajectoryGenerator.Config config)
+        public static Trajectory GenerateFromPath(WaypointSequence waypoints, TrajectoryGenerator.Config config, bool isHolonomic = false)
         {
             if (waypoints.Count < 2)
             {
@@ -36,6 +36,8 @@ namespace SplineGenerator
             Trajectory traj = TrajectoryGenerator.Generate(config,
                     Strategy.SCurvesStrategy, 0.0, waypoints[0].Theta,
                     totalDistance, 0.0, waypoints[0].Theta);
+            if (isHolonomic)
+                return traj;
 
             // Assign headings based on the splines.
             int curSpline = 0;
