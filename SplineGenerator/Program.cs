@@ -14,13 +14,42 @@ namespace SplineGenerator
         {
             //Converts inches to feet
             const double wheelBaseWidth = 26.5/12;
+            {
+                HolonomicPath hPath = new HolonomicPath("HoloPath");
+                hPath.SetConfig(10.0, 15.0, 70.0);
+                hPath.AddWaypoint(0);
+                hPath.AddWaypoint(10);
+
+                hPath.GeneratePath(Math.PI/2, 0);
+
+                StringBuilder content = new StringBuilder();
+                var left = hPath.HoloTrajectory;
+                var right = left;
+                for (int i = 0; i < hPath.HoloTrajectory.Count; i++)
+                {
+                    content.AppendLine(left[i].Dt.ToString("F3") + ", " + left[i].MagnitudeVelocity.ToString("F3") + ", " +
+                                       left[i].MagnitudeAcceleration.ToString("F3")
+                                       + ", " + left[i].MagnitueJerk.ToString("F3") + ", " + right[i].Position.ToString("F3") + ", " + right[i].Dt.ToString("F3") +
+                                       ", " + right[i].Dt.ToString("F3") + ", "
+                                       + right[i].Dt);
+                }
+                string output = content.ToString();
+                if (!Directory.Exists("Outputs"))
+                    Directory.CreateDirectory("Outputs");
+                if (File.Exists("Outputs\\" + hPath.Name + "Output.txt"))
+                {
+                    File.Delete("Outputs\\" + hPath.Name + "Output.txt");
+                }
+                File.WriteAllText("Outputs\\" + hPath.Name + "Output.txt", output);
+            }
+
 
             { // Tester
                 Path path = new Path("Testing", wheelBaseWidth);
                 path.SetConfig(10.0, 8.0, 50.0);
                 path.AddWaypoint(0, 0, 0);
                 path.AddWaypoint(7, 0, 0);
-                path.AddWaypoint(14, 1, Math.PI/12);
+                //path.AddWaypoint(14, 1, Math.PI/12);
 
                 path.GeneratePath();
 

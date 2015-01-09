@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3420F175-3CE6-434F-82F4-CC4320A6D750}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SplineGenerator</RootNamespace>
     <AssemblyName>SplineGenerator</AssemblyName>
@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ChezyMath.cs" />
     <Compile Include="HolonomicPath.cs" />
+    <Compile Include="HolonomicTrajectory.cs" />
     <Compile Include="Path.cs" />
     <Compile Include="PathGenerator.cs" />
     <Compile Include="Program.cs" />
