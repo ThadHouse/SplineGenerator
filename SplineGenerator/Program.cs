@@ -87,6 +87,8 @@ namespace SplineGenerator
                 path.AddWaypoint(0, 0, 0);
                 path.AddWaypoint(5, 3, Math.PI/6);
                 path.AddWaypoint(9.5, 4.1, 0);
+                path.AddWaypoint(13, 3, -Math.PI / 6);
+                path.AddWaypoint(19, 0, 0);
 
                 path.GeneratePath();
                 
