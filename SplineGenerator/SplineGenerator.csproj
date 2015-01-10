@@ -55,6 +55,7 @@
     <Compile Include="Spline.cs" />
     <Compile Include="Trajectory.cs" />
     <Compile Include="TrajectoryGenerator.cs" />
+    <Compile Include="Waypoint.cs" />
     <Compile Include="WaypointSequence.cs" />
     <Compile Include="WriteFile.cs" />
   </ItemGroup>
