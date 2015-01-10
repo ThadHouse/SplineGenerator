@@ -5,7 +5,6 @@ using System.Text;
 
 namespace SplineGenerator
 {
-
     class PathGenerator
     {
         public static Trajectory GenerateFromPath(WaypointSequence waypoints, TrajectoryGenerator.Config config, bool isHolonomic = false)
@@ -20,7 +19,7 @@ namespace SplineGenerator
             List<Spline> splines = new List<Spline>();
             List<Double> splineLengths = new List<double>();
             double totalDistance = 0;
-            for (int i = 0; i < waypoints.Count - 1; ++i)
+            for (int i = 0; i < waypoints.Count - 1; i++)
             {
                 splines.Add(new Spline());
                 if (!Spline.ReticulateSplines(waypoints[i],
@@ -43,7 +42,7 @@ namespace SplineGenerator
             int curSpline = 0;
             double curSplineStartPos = 0;
             double lengthOfSplinesFinished = 0;
-            for (int i = 0; i < traj.Count; ++i)
+            for (int i = 0; i < traj.Count; i++)
             {
                 double curPos = traj[i].Pos;
 
