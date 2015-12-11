@@ -2,12 +2,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace SplineGenerator
 {
     //Made Trajectory IEnumerable so a foreach loop could cycle thru it
     public class Trajectory : IEnumerable<Segment>
     {
+        public string Serialize()
+        {
+            string serialized = JsonConvert.SerializeObject(this, Formatting.Indented);
+
+            File.WriteAllText("file.txt", serialized);
+
+                return serialized;
+        }
+
+
         //Stored list of segments
         private readonly List<Segment> _segments;
 
@@ -134,26 +146,6 @@ namespace SplineGenerator
         {
             List<Segment> copied = toCopy.Select(s => new Segment(s)).ToList();
             return copied;
-        }
-
-        public HolonomicTrajectory CopyToHolonomicTrajectory()
-        {
-            List<HolonomicSegment> copied = new List<HolonomicSegment>();
-
-            foreach (var seg in _segments)
-            {
-                HolonomicSegment temp = new HolonomicSegment
-                {
-                    Dt = seg.Dt,
-                    MagnitudeVelocity = seg.Vel,
-                    MagnitudeAcceleration = seg.Acc,
-                    MagnitueJerk = seg.Jerk,
-                    RotationHeading = seg.Heading,
-                    Position = seg.Pos
-                };
-                copied.Add(temp);
-            }
-            return new HolonomicTrajectory(copied);
         }
 
         /// <summary>

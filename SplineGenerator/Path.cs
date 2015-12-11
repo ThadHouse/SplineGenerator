@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace SplineGenerator
 {
@@ -9,10 +10,15 @@ namespace SplineGenerator
     
     public class Path
     {
+        public string Serialize()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
+
         //Store the center trajectory, and the left and right trajectories
-        private Trajectory _mainTrajectory;
-        private Trajectory _left;
-        private Trajectory _right;
+        public Trajectory _mainTrajectory;
+        public Trajectory _left;
+        public Trajectory _right;
 
         private readonly TrajectoryGenerator.Config _config;
         private readonly WaypointSequence _sequence;

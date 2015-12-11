@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace SplineGenerator
 {
@@ -15,6 +16,7 @@ namespace SplineGenerator
             //Converts inches to feet
             const double wheelBaseWidth = 26.5/12;
             {
+                /*
                 HolonomicPath hPath = new HolonomicPath("HoloPath");
                 hPath.SetConfig(10.0, 15.0, 70.0);
                 hPath.AddWaypoint(0);
@@ -41,6 +43,7 @@ namespace SplineGenerator
                     File.Delete("Outputs\\" + hPath.Name + "Output.txt");
                 }
                 File.WriteAllText("Outputs\\" + hPath.Name + "Output.txt", output);
+                */
             }
 
 
@@ -57,6 +60,7 @@ namespace SplineGenerator
                 var l = path.Left;
                 var r = path.Right;
 
+                
 
 
                 /*
@@ -91,6 +95,10 @@ namespace SplineGenerator
                 path.AddWaypoint(19, 0, 0);
 
                 path.GeneratePath();
+
+                File.WriteAllText("File.txt", JsonConvert.SerializeObject(path, Formatting.Indented));
+
+                var unserialized = JsonConvert.DeserializeObject<Path>(File.ReadAllText("File.txt"));
                 
                 string output = SerializePathSimple(path);
 
@@ -101,7 +109,7 @@ namespace SplineGenerator
                     File.Delete("Outputs\\" + path.Name + "Output.txt");
                 }
                 File.WriteAllText("Outputs\\" + path.Name + "Output.txt", output);
-                 
+
             }
             { //Goal to 22 ft back
                 Path path = new Path("0,0 to -22,0", wheelBaseWidth);

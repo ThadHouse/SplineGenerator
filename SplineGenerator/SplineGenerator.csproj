@@ -35,6 +35,10 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,8 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChezyMath.cs" />
-    <Compile Include="HolonomicPath.cs" />
-    <Compile Include="HolonomicTrajectory.cs" />
     <Compile Include="Path.cs" />
     <Compile Include="PathGenerator.cs" />
     <Compile Include="Program.cs" />
@@ -58,6 +60,9 @@
     <Compile Include="Waypoint.cs" />
     <Compile Include="WaypointSequence.cs" />
     <Compile Include="WriteFile.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
