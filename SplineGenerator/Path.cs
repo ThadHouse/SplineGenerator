@@ -7,18 +7,19 @@ using Newtonsoft.Json;
 namespace SplineGenerator
 {
     public enum AngleMode { Degrees, Radians }
-    
+
     public class Path
     {
         public string Serialize()
         {
-            return JsonConvert.SerializeObject(this);
+            string serialized = JsonConvert.SerializeObject(this, Formatting.Indented);
+            return serialized;
         }
 
         //Store the center trajectory, and the left and right trajectories
-        public Trajectory _mainTrajectory;
-        public Trajectory _left;
-        public Trajectory _right;
+        private Trajectory _mainTrajectory;
+        private Trajectory _left;
+        private Trajectory _right;
 
         private readonly TrajectoryGenerator.Config _config;
         private readonly WaypointSequence _sequence;
@@ -26,11 +27,12 @@ namespace SplineGenerator
         /// <summary>
         /// Gets or sets the name of the Path
         /// </summary>
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the WheelBaseWidth (Feet)
         /// </summary>
+        [JsonIgnore]
         protected double WheelBaseWidth { get; set; }
 
         /// <summary>
@@ -39,6 +41,7 @@ namespace SplineGenerator
         public Trajectory MainTrajectory 
         {
             get { return _mainTrajectory; }
+            set { _mainTrajectory = value; }
         }
 
         /// <summary>
@@ -47,6 +50,7 @@ namespace SplineGenerator
         public Trajectory Left
         {
             get { return _left; }
+            set { _left = value; }
         }
 
         /// <summary>
@@ -55,10 +59,11 @@ namespace SplineGenerator
         public Trajectory Right
         {
             get { return _right; }
+            set { _right = value; }
         }
 
         //Constructors
-        public Path(String name, double wheelBaseWidth)
+        public Path(string name, double wheelBaseWidth)
         {
             Name = name;
             WheelBaseWidth = wheelBaseWidth;

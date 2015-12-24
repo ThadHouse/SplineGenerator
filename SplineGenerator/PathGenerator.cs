@@ -44,7 +44,7 @@ namespace SplineGenerator
             double lengthOfSplinesFinished = 0;
             for (int i = 0; i < traj.Count; i++)
             {
-                double curPos = traj[i].Pos;
+                double curPos = traj[i].Position;
 
                 bool foundSpline = false;
                 while (!foundSpline)
@@ -102,10 +102,10 @@ namespace SplineGenerator
                             * (sLeft.X - leftTrajectory[i-1].X)
                             + (sLeft.Y - leftTrajectory[i-1].Y)
                             * (sLeft.Y - leftTrajectory[i-1].Y));
-                    sLeft.Pos = leftTrajectory[i-1].Pos + dist;
-                    sLeft.Vel = dist / sLeft.Dt;
-                    sLeft.Acc = (sLeft.Vel - leftTrajectory[i-1].Vel) / sLeft.Dt;
-                    sLeft.Jerk = (sLeft.Acc - leftTrajectory[i-1].Acc) / sLeft.Dt;
+                    sLeft.Position = leftTrajectory[i-1].Position + dist;
+                    sLeft.Velocity = dist / sLeft.Dt;
+                    sLeft.Acceleration = (sLeft.Velocity - leftTrajectory[i-1].Velocity) / sLeft.Dt;
+                    sLeft.Jerk = (sLeft.Acceleration - leftTrajectory[i-1].Acceleration) / sLeft.Dt;
                 }
 
                 Segment sRight = rightTrajectory[i];
@@ -118,10 +118,10 @@ namespace SplineGenerator
                             * (sRight.X - rightTrajectory[i-1].X)
                             + (sRight.Y - rightTrajectory[i-1].Y)
                             * (sRight.Y - rightTrajectory[i-1].Y));
-                    sRight.Pos = rightTrajectory[i-1].Pos + dist;
-                    sRight.Vel = dist / sRight.Dt;
-                    sRight.Acc = (sRight.Vel - rightTrajectory[i-1].Vel) / sRight.Dt;
-                    sRight.Jerk = (sRight.Acc - rightTrajectory[i-1].Acc) / sRight.Dt;
+                    sRight.Position = rightTrajectory[i-1].Position + dist;
+                    sRight.Velocity = dist / sRight.Dt;
+                    sRight.Acceleration = (sRight.Velocity - rightTrajectory[i-1].Velocity) / sRight.Dt;
+                    sRight.Jerk = (sRight.Acceleration - rightTrajectory[i-1].Acceleration) / sRight.Dt;
                 }
             }
         }

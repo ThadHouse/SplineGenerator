@@ -7,11 +7,11 @@ namespace SplineGenerator
 {
     public class Segment
     {
-        public double Acc;
+        public double Acceleration;
         public double Dt;
         public double Heading;
         public double Jerk;
-        public double Pos, Vel;
+        public double Position, Velocity;
         public double X, Y;
 
         public Segment()
@@ -21,9 +21,9 @@ namespace SplineGenerator
         public Segment(double pos, double vel, double acc, double jerk,
             double heading, double dt, double x, double y)
         {
-            Pos = pos;
-            Vel = vel;
-            Acc = acc;
+            Position = pos;
+            Velocity = vel;
+            Acceleration = acc;
             Jerk = jerk;
             Heading = heading;
             Dt = dt;
@@ -37,9 +37,9 @@ namespace SplineGenerator
         /// <param name="toCopy"></param>
         public Segment(Segment toCopy)
         {
-            Pos = toCopy.Pos;
-            Vel = toCopy.Vel;
-            Acc = toCopy.Acc;
+            Position = toCopy.Position;
+            Velocity = toCopy.Velocity;
+            Acceleration = toCopy.Acceleration;
             Jerk = toCopy.Jerk;
             Heading = toCopy.Heading;
             Dt = toCopy.Dt;
@@ -51,9 +51,9 @@ namespace SplineGenerator
         /// Returns segment as a string
         /// </summary>
         /// <returns></returns>
-        public override String ToString()
+        public override string ToString()
         {
-            return "pos: " + Pos + "; vel: " + Vel + "; acc: " + Acc + "; jerk: "
+            return "pos: " + Position + "; vel: " + Velocity + "; acc: " + Acceleration + "; jerk: "
                    + Jerk + "; heading: " + Heading;
         }
 

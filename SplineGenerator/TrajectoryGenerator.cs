@@ -119,8 +119,8 @@ namespace SplineGenerator
             for (int i = 0; i < traj.Count; ++i)
             {
                 traj[i].Heading = startHeading + totalHeadingChange
-                                            * (traj[i].Pos)
-                                            / traj[traj.Count - 1].Pos;
+                                            * (traj[i].Position)
+                                            / traj[traj.Count - 1].Position;
             }
 
             return traj;
@@ -141,7 +141,7 @@ namespace SplineGenerator
             }
             Trajectory traj = new Trajectory();
 
-            Segment last = new Segment { Pos = 0, Vel = startVel, Acc = 0, Jerk = 0, Dt = dt };
+            Segment last = new Segment { Position = 0, Velocity = startVel, Acceleration = 0, Jerk = 0, Dt = dt };
             // First segment is easy
 
             // f2 is the average of the last f2_length samples from f1, so while we
@@ -182,24 +182,24 @@ namespace SplineGenerator
                 f2 = f2 / f1Length;
 
                 // Velocity is the normalized sum of f2 * the max velocity
-                segment.Vel = f2 / f2Length * maxVel;
+                segment.Velocity = f2 / f2Length * maxVel;
 
                 if (integration == IntegrationMethod.RectangularIntegration)
                 {
-                    segment.Pos = segment.Vel * dt + last.Pos;
+                    segment.Position = segment.Velocity * dt + last.Position;
                 }
                 else if (integration == IntegrationMethod.TrapezoidalIntegration)
                 {
-                    segment.Pos = (last.Vel
-                            + segment.Vel) / 2.0 * dt + last.Pos;
+                    segment.Position = (last.Velocity
+                            + segment.Velocity) / 2.0 * dt + last.Position;
                 }
-                segment.X = segment.Pos;
+                segment.X = segment.Position;
                 segment.Y = 0;
 
                 // Acceleration and jerk are the differences in velocity and
                 // acceleration, respectively.
-                segment.Acc = (segment.Vel - last.Vel) / dt;
-                segment.Jerk = (segment.Acc - last.Acc) / dt;
+                segment.Acceleration = (segment.Velocity - last.Velocity) / dt;
+                segment.Jerk = (segment.Acceleration - last.Acceleration) / dt;
                 segment.Dt = dt;
 
                 last = segment;

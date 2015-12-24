@@ -13,10 +13,7 @@ namespace SplineGenerator
         public string Serialize()
         {
             string serialized = JsonConvert.SerializeObject(this, Formatting.Indented);
-
-            File.WriteAllText("file.txt", serialized);
-
-                return serialized;
+            return serialized;
         }
 
 
@@ -39,7 +36,7 @@ namespace SplineGenerator
         {
             _segments = new List<Segment>();
         }
-        
+
         /// <summary>
         /// Copy Constructor (Shallow Copy)
         /// </summary>
@@ -77,7 +74,7 @@ namespace SplineGenerator
         {
             return GetEnumerator();
         }
-        
+
         /// <summary>
         /// Scale a trajectory
         /// </summary>
@@ -86,9 +83,9 @@ namespace SplineGenerator
         {
             for (int i = 0; i < Count; ++i)
             {
-                _segments[i].Pos *= scalingFactor;
-                _segments[i].Vel *= scalingFactor;
-                _segments[i].Acc *= scalingFactor;
+                _segments[i].Position *= scalingFactor;
+                _segments[i].Velocity *= scalingFactor;
+                _segments[i].Acceleration *= scalingFactor;
                 _segments[i].Jerk *= scalingFactor;
             }
         }
@@ -101,10 +98,10 @@ namespace SplineGenerator
             foreach (var segment in _segments)
             {
                 segment.X = -segment.X;
-                segment.Vel = -segment.Vel;
-                segment.Acc = -segment.Acc;
+                segment.Velocity = -segment.Velocity;
+                segment.Acceleration = -segment.Acceleration;
                 segment.Jerk = -segment.Jerk;
-                segment.Pos = -segment.Pos;
+                segment.Position = -segment.Position;
             }
         }
 
@@ -118,7 +115,7 @@ namespace SplineGenerator
             {
                 segment.Heading = ChezyMath.BoundAngleNegPiToPiRadians(segment.Heading);
                 if (mode == AngleMode.Degrees)
-                    segment.Heading = segment.Heading*(180.0/Math.PI); //RadiansToDegree(segment.Heading);
+                    segment.Heading = segment.Heading * (180.0 / Math.PI); //RadiansToDegree(segment.Heading);
             }
         }
 
@@ -159,9 +156,9 @@ namespace SplineGenerator
             {
                 Segment segment = _segments[i];
                 str += i + "\t";
-                str += segment.Pos + "\t";
-                str += segment.Vel + "\t";
-                str += segment.Acc + "\t";
+                str += segment.Position + "\t";
+                str += segment.Velocity + "\t";
+                str += segment.Acceleration + "\t";
                 str += segment.Jerk + "\t";
                 str += segment.Heading + "\t";
                 str += "\n";

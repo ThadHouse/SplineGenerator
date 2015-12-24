@@ -56,12 +56,14 @@ namespace SplineGenerator
 
                 path.GeneratePath();
 
+                string serialized = path.Left.Serialize();
+
                 var mPath = path.MainTrajectory;
                 var l = path.Left;
                 var r = path.Right;
 
-                
-
+                var deserialize = JsonConvert.DeserializeObject<Trajectory>(serialized);
+                ;
 
                 /*
                 StringBuilder content = new StringBuilder();
@@ -99,8 +101,7 @@ namespace SplineGenerator
                 File.WriteAllText("File.txt", JsonConvert.SerializeObject(path, Formatting.Indented));
 
                 var unserialized = JsonConvert.DeserializeObject<Path>(File.ReadAllText("File.txt"));
-                
-                string output = SerializePathSimple(path);
+               
 
                 if (!Directory.Exists("Outputs"))
                     Directory.CreateDirectory("Outputs");
@@ -122,8 +123,6 @@ namespace SplineGenerator
 
                 path.Left.InvertX();
                 path.Right.InvertX();
-                
-                string output = SerializePathSimple(path);
 
                 if (!Directory.Exists("Outputs"))
                     Directory.CreateDirectory("Outputs");
@@ -143,9 +142,6 @@ namespace SplineGenerator
                 path.AddWaypoint(12, -4.1, 0);
 
                 path.GeneratePath();
-
-               
-                string output = SerializePathSimple(path);
 
                 if (!Directory.Exists("Outputs"))
                     Directory.CreateDirectory("Outputs");
@@ -179,46 +175,6 @@ namespace SplineGenerator
                 File.WriteAllText("Outputs\\" + path.Name + "Output.txt", output);
                 
             }
-        }
-
-        static string Serialize(Trajectory trajectory)
-        {
-            StringBuilder content = new StringBuilder();
-
-            foreach (Segment s in trajectory)
-            {
-                content.AppendLine(s.Pos.ToString("F3") + " " + s.Vel.ToString("F3") + " " + s.Acc.ToString("F3") + " " + s.Jerk.ToString("F3") + " " + s.Heading.ToString("F3") + " " + s.Dt.ToString("F3") + " " + s.X.ToString("F3") + " " + s.Y.ToString("F3"));
-            }
-
-            /*
-            String content = "";
-            for (int i = 0; i < trajectory.GetNumSegments(); ++i)
-            {
-                Segment segment = trajectory[i];
-                content += String.Format(
-                        "%.3f %.3f %.3f %.3f %.3f %.3f %.3f %.3f\n",
-                        segment.pos, segment.vel, segment.acc, segment.jerk,
-                        segment.heading, segment.dt, segment.x, segment.y);
-            }
-             * */
-            return content.ToString();
-        }
-
-        public static string SerializePathSimple(Path path)
-        {
-            StringBuilder content = new StringBuilder();
-            var left = path.Left;
-            var right = path.Right;
-            for (int i = 0; i < path.Left.Count; i++)
-            {
-                content.AppendLine(left[i].Pos.ToString("F3") + ", " + left[i].Vel.ToString("F3") + ", " +
-                                   left[i].Acc.ToString("F3")
-                                   + ", " + left[i].Heading.ToString("F3") + ", " + right[i].Pos.ToString("F3") + ", " + right[i].Vel.ToString("F3") +
-                                   ", " + right[i].Acc.ToString("F3") + ", "
-                                   + right[i].Dt);
-            }
-
-            return content.ToString();
         }
     }
 }
